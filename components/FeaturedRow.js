@@ -16,11 +16,44 @@ const FeaturedRow = ({ id, title, description }) => {
                 contentContainerStyle={{
                     paddingHorizontal: 15,
                 }}
-                showsHorizontalScrollIndicator={true}
+                showsHorizontalScrollIndicator={false}
                 className="pt-4"
             >
                 {/* RestaurantCards */}
                 <RestaurantCard
+                    id={1}
+                    imgUrl="https://links.papareact.com/gn7"
+                    title="The Sushi"
+                    rating={4.8}
+                    genre="French"
+                    address="124 Main St. ave "
+                    short_description="This is a description"
+                    dishes={[]}
+                    long={25}
+                    lat={5}
+                /><RestaurantCard
+                    id={1}
+                    imgUrl="https://links.papareact.com/gn7"
+                    title="The Sushi"
+                    rating={4.8}
+                    genre="French"
+                    address="124 Main St. ave "
+                    short_description="This is a description"
+                    dishes={[]}
+                    long={25}
+                    lat={5}
+                /><RestaurantCard
+                    id={1}
+                    imgUrl="https://links.papareact.com/gn7"
+                    title="The Sushi"
+                    rating={4.8}
+                    genre="French"
+                    address="124 Main St. ave "
+                    short_description="This is a description"
+                    dishes={[]}
+                    long={25}
+                    lat={5}
+                /><RestaurantCard
                     id={1}
                     imgUrl="https://links.papareact.com/gn7"
                     title="The Sushi"
