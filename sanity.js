@@ -1,15 +1,17 @@
-import { SanityClient } from "@sanity/client";
-import ImageUrlBuilder from "@sanity/image-url";
+import { createClient } from "@sanity/client";
+import imageUrlBuilder from "@sanity/image-url";
 
-const client = SanityClient({
-    projectId: '3dkzxt0r',
-    dataset: 'production',
+const client = createClient({
+    projectId: "3dkzxt0r",
+    dataset: "production",
     useCdn: true,
-    apiVersion: "2021-10-21",
+    apiVersion: "2022-03-07",
 });
 
-const builder = ImageUrlBuilder(client);
+const builder = imageUrlBuilder(client);
 
-export const urlFor = (source) => builder.image(source);
+export function urlFor(source) {
+    return builder.image(source);
+}
 
 export default client;

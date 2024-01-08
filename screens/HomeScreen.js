@@ -1,80 +1,85 @@
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { SafeAreaView, Text, View, Image, TextInput, ScrollView } from 'react-native';
-import React, { useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { UserIcon, ChevronDownIcon, MagnifyingGlassIcon, AdjustmentsVerticalIcon } from 'react-native-heroicons/outline';
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
-
+import client from '../sanity';
 
 const HomeScreen = () => {
     const navigation = useNavigation();
+    const [featuredCategories, setFeaturedCategories] = useState([]);
 
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false,
         });
+    }, [navigation]);
+
+    useEffect(() => {
+        client.fetch(`
+        *[_type == "featured"]{
+            ...,
+            restaurants[]=>{
+              ..., 
+              dishes[]=> {
+                
+              }
+            },
+          }`).then(data => {
+            setFeaturedCategories(data);
+        });
     }, []);
+
+    console.log(featuredCategories);
+
     return (
-        <SafeAreaView className="bg-white pt-5">
-            <View className="flex-row pb-3 items-center mx-4 space-x-2">
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'white', paddingTop: 5 }}>
+            <View style={{ flexDirection: 'row', paddingBottom: 3, paddingHorizontal: 16, alignItems: 'center', justifyContent: 'space-between' }}>
                 <Image
-                    source={{
-                        uri: "https://links.papareact.com/wru"
-                    }}
-                    className="h-7 w-7 bg-gray-300 p-4 rounded-full"
+                    source={{ uri: 'https://links.papareact.com/wru' }}
+                    style={{ height: 28, width: 28, borderRadius: 14, backgroundColor: 'gray' }}
                 />
-
-                <View className="flex-1">
-                    <Text className="font-bold text-gray-400 text-xs">Deliver Now!</Text>
-                    <Text className="font-bold text-xl">Current Location
+                <View style={{ flex: 1 }}>
+                    <Text style={{ fontWeight: 'bold', color: 'gray', fontSize: 12 }}>Deliver Now!</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Current Location</Text>
                         <ChevronDownIcon size={20} color="#00CCBB" />
-                    </Text>
+                    </View>
                 </View>
-
                 <UserIcon size={35} color="#00CCBB" />
             </View>
 
-            <View className="flex-row items-center space-x-2 pb-2 mx-4">
-                <View className="flex-row flex-1 space-x-2 bg-gray-200 p-3">
-                    <MagnifyingGlassIcon color="gray" size={20} />
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingBottom: 2 }}>
+                <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'gray', padding: 12, borderRadius: 8, marginRight: 8, alignItems: 'center' }}>
+                    <MagnifyingGlassIcon color="whitesmoke" size={20} />
                     <TextInput
                         placeholder='Restaurants and cuisines'
                         keyboardType='default'
+                        style={{ flex: 1, marginLeft: 8 }}
                     />
                 </View>
-
                 <AdjustmentsVerticalIcon color="#00CCBB" />
             </View>
 
             <ScrollView
-                className="bg-gray-100"
-                contentContainerStyle={{
-                    paddingBottom: 100,
-                }}>
+                style={{ backgroundColor: 'gray' }}
+                contentContainerStyle={{ paddingBottom: 100 }}>
                 {/* Categories */}
                 <Categories />
 
                 {/* Featured */}
-                <FeaturedRow
-                    id="1"
-                    title="Featured"
-                    description="Paid placements from our partners"
-                />
-                {/* Tasty Discounts */}
-                <FeaturedRow
-                    id="2"
-                    title="Tasty Discounts"
-                    description="Everyone's been enjoying these juicy discounts!"
-                />
-                {/* Offers near you */}
-                <FeaturedRow
-                    id="3"
-                    title="Offers near you!"
-                    description="Why not support your local restaurant tonight!"
-                />
+                {featuredCategories?.map(category => (
+                    <FeaturedRow
+                        key={category._id}
+                        id={category._id}
+                        title={category.name}
+                        description={category.short_description}
+                    />
+                ))}
             </ScrollView>
         </SafeAreaView>
     );
 };
 
-export default HomeScreen; 
+export default HomeScreen;

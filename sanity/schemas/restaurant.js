@@ -18,7 +18,7 @@ export default defineType({
       validation: (Rule) => Rule.max(200)
     }),
     defineField({
-      name: 'image',
+      name: 'image', 
       type: "image",
       title: "Image of the Restaurant",
     }),
