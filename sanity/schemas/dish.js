@@ -7,25 +7,25 @@ export default defineType({
   fields: [
     defineField({
       name: 'name',
-      type: "string",
-      title: "Name of dish",
+      title: 'Name of dish',
+      type: 'string',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'short_description',
-      type: "string",
-      title: "Short description",
+      title: 'Short description',
+      type: 'string',
       validation: (Rule) => Rule.max(200),
     }),
     defineField({
       name: 'price',
-      type: "number",
-      title: "Price of the dish in GBP",
+      title: 'Price of the dish in GBP',
+      type: 'number',
     }),
     defineField({
       name: 'image',
-      type: "image",
-      title: "Image of the Dish",
+      title: 'Image of the dish',
+      type: 'image',
     }),
   ],
 

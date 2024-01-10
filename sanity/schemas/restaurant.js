@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity';
+import category from './category';
 
 export default defineType({
   name: 'restaurant',
@@ -7,58 +8,57 @@ export default defineType({
   fields: [
     defineField({
       name: 'name',
-      type: "string",
-      title: "Restaurant name",
-      validation: (Rule) => Rule.required()
+      title: 'Restaurant name',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'short_description',
-      type: "string",
-      title: "Short description",
+      title: 'Short description',
+      type: 'string',
       validation: (Rule) => Rule.max(200)
     }),
     defineField({
-      name: 'image', 
-      type: "image",
-      title: "Image of the Restaurant",
+      name: 'image',
+      type: 'image',
+      title: 'Image of the Restaurant',
     }),
     defineField({
       name: 'lat',
-      type: "number",
-      title: "Latitude of the Restaurant",
+      type: 'number',
+      title: 'Latitude of the Restaurant',
     }),
     defineField({
       name: 'long',
-      type: "number",
-      title: "Longitude of the Restaurant",
+      type: 'number',
+      title: 'Longitude of the Restaurant',
     }),
     defineField({
       name: 'address',
-      type: "string",
-      title: "Restaurant address",
-      validation: (Rule) => Rule.required()
+      type: 'string',
+      title: 'Restaurant address',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'rating',
-      type: "number",
-      title: "Enter a Rating from (1-5 Stars)",
-      validation: (Rule) =>
-        Rule.required()
-          .min(1)
-          .max(5)
-          .error("Please enter a value between 1 and 5"),
+      type: 'number',
+      title: 'Enter a Rating from (1-5 stars)',
+      validation: (Rule) => Rule.required()
+        .min(1)
+        .max(5)
+        .error("Please enter a value between 1 and 5"),
     }),
     defineField({
       name: 'type',
-      type: "reference",
-      title: "Category",
+      type: 'reference',
+      title: 'Category',
       validation: (Rule) => Rule.required(),
-      to: [{ type: 'category' }]
+      to: [{ type: "category" }],
     }),
     defineField({
       name: 'dishes',
-      type: "array",
-      title: "Dishes",
+      type: 'array',
+      title: 'Dishes',
       of: [{ type: "reference", to: [{ type: "dish" }] }],
     }),
   ],

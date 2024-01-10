@@ -31,45 +31,45 @@ const HomeScreen = () => {
         });
     }, []);
 
-    console.log(featuredCategories);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: 'white', paddingTop: 5 }}>
-            <View style={{ flexDirection: 'row', paddingBottom: 3, paddingHorizontal: 16, alignItems: 'center', justifyContent: 'space-between' }}>
+        <SafeAreaView className="bg-white pt-5">
+            <View className="flex-row pb-3 items-center justify-between mx-4 space-x-2">
                 <Image
-                    source={{ uri: 'https://links.papareact.com/wru' }}
-                    style={{ height: 28, width: 28, borderRadius: 14, backgroundColor: 'gray' }}
+                    source={{
+                        uri: 'https://links.papareact.com/wru'
+                    }}
+                    className="h7 w-7 rounded-full bg-gray-300 p-4"
                 />
-                <View style={{ flex: 1 }}>
-                    <Text style={{ fontWeight: 'bold', color: 'gray', fontSize: 12 }}>Deliver Now!</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Current Location</Text>
+                <View className="flex-1">
+                    <Text className="font-bold text-gray-400">Deliver Now!</Text>
+
+                    <Text className="font-bold text-xl">Current Location
                         <ChevronDownIcon size={20} color="#00CCBB" />
-                    </View>
+                    </Text>
                 </View>
                 <UserIcon size={35} color="#00CCBB" />
             </View>
 
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingBottom: 2 }}>
-                <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'gray', padding: 12, borderRadius: 8, marginRight: 8, alignItems: 'center' }}>
-                    <MagnifyingGlassIcon color="whitesmoke" size={20} />
+            <View className="flex-row items-center space-x-2 pb-2 mx-4">
+                <View className=" flex-row flex-1 bg-gray-200 p-3 space-x-2">
+                    <MagnifyingGlassIcon color="gray" size={20} />
                     <TextInput
                         placeholder='Restaurants and cuisines'
                         keyboardType='default'
-                        style={{ flex: 1, marginLeft: 8 }}
                     />
                 </View>
                 <AdjustmentsVerticalIcon color="#00CCBB" />
             </View>
 
             <ScrollView
-                style={{ backgroundColor: 'gray' }}
+                className="bg-gray-100"
                 contentContainerStyle={{ paddingBottom: 100 }}>
                 {/* Categories */}
                 <Categories />
 
                 {/* Featured */}
-                {featuredCategories?.map(category => (
+                {featuredCategories?.map((category) => (
                     <FeaturedRow
                         key={category._id}
                         id={category._id}

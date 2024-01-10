@@ -7,22 +7,21 @@ export default defineType({
     fields: [
         defineField({
             name: 'name',
-            type: "string",
-            title: "Featured Category name",
+            title: 'Featured Category name',
+            type: 'string',
             validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: 'short_description',
-            type: "string",
-            title: "Short description",
-            validation: (Rule) => Rule.max(200),
+            title: 'Short description',
+            type: 'string',
+            validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: 'restaurants',
-            type: "array",
-            title: "Restaurants",
+            title: 'Restaurants',
+            type: 'array',
             of: [{ type: "reference", to: [{ type: "restaurant" }] }],
         }),
     ],
-
 });

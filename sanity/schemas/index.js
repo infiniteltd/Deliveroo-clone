@@ -1,6 +1,6 @@
-import featured from './featured';
 import category from './category';
-import dish from './dish';
 import restaurant from './restaurant';
+import dish from './dish';
+import featured from './featured';
 
-export const schemaTypes = [restaurant, category, dish, featured];
+export const schemaTypes = [restaurant, dish, category, featured];

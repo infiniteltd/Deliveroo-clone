@@ -9,40 +9,43 @@ const FeaturedRow = ({ id, title, description }) => {
 
     useEffect(() => {
         client.fetch(`
-                    *[_type == "featured" && _id == $id]{
-                        ...,
-                        restaurants[]=>{
-                            ...,
-                            dishes[]=>{
-                                type=> {
-                                    name
-                                }
-                            }
-                        },
-                    }[]
-                `,
-            { id }
+        *[_type == "featured" && _id == $id]{
+            ...,
+            restaurants[]=>{
+              ..., 
+              dishes[]=> {
+                type=> {
+                  name
+                }
+              }
+            },
+          }[00]
+        `, { id }
         ).then(data => {
             setRestaurants(data?.restaurants);
         });
     }, []);
 
+
     return (
         <View>
-            <View style={{ marginTop: 4, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16 }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{title}</Text>
+            <View className="mt-4 flex-row items-center justify-between px-4">
+                <Text className="font-bold text-lg">{title}</Text>
                 <ArrowRightIcon color="#00CCBB" />
             </View>
-            <Text style={{ fontSize: 12, color: 'gray', paddingHorizontal: 16, paddingBottom: 4 }}>{description}</Text>
+            <Text className="text-xs text-gray-500 px-4">{description}</Text>
+
             <ScrollView
                 horizontal
-                contentContainerStyle={{ paddingHorizontal: 15 }}
+                contentContainerStyle={{ 
+                    paddingHorizontal: 15,  
+                }}
                 showsHorizontalScrollIndicator={false}
-                style={{ paddingTop: 4 }}
+                className="pt-4"
             >
                 {restaurants?.map(restaurant => (
                     <RestaurantCard
-                        key={restaurant._id}
+                        key={restaurant._key}
                         id={restaurant._id}
                         imgUrl={restaurant.image}
                         address={restaurant.address}

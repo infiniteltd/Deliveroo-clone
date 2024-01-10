@@ -5,7 +5,10 @@ import CategoryCard from './CategoryCard';
 const Categories = () => {
     return (
         <ScrollView
-            contentContainerStyle={styles.container}
+            contentContainerStyle={{
+                paddingHorizontal: 15,
+                paddingTop: 10,
+            }}
             horizontal
             showsHorizontalScrollIndicator={false}
         >
@@ -17,12 +20,5 @@ const Categories = () => {
         </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal: 15,
-        paddingTop: 10,
-    },
-});
 
 export default Categories;
