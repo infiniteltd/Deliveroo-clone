@@ -2,30 +2,31 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { ArrowRightIcon } from 'react-native-heroicons/outline';
 import RestaurantCard from './RestaurantCard';
-import client from '../sanity';
+import sanityClient from '../sanity';
 
 const FeaturedRow = ({ id, title, description }) => {
     const [restaurants, setRestaurants] = useState([]);
 
     useEffect(() => {
-        client.fetch(`
+        sanityClient.fetch(`
         *[_type == "featured" && _id == $id]{
             ...,
-            restaurants[]=>{
+            restaurants[]->{
               ..., 
-              dishes[]=> {
-                type=> {
+              dishes[]-> {
+                type-> {
                   name
                 }
               }
             },
-          }[00]
+          }[0]
         `, { id }
         ).then(data => {
             setRestaurants(data?.restaurants);
         });
     }, []);
 
+    console.log(restaurants);
 
     return (
         <View>
@@ -37,15 +38,15 @@ const FeaturedRow = ({ id, title, description }) => {
 
             <ScrollView
                 horizontal
-                contentContainerStyle={{ 
-                    paddingHorizontal: 15,  
+                contentContainerStyle={{
+                    paddingHorizontal: 15,
                 }}
                 showsHorizontalScrollIndicator={false}
                 className="pt-4"
             >
                 {restaurants?.map(restaurant => (
                     <RestaurantCard
-                        key={restaurant._key}
+                        key={restaurant._id}
                         id={restaurant._id}
                         imgUrl={restaurant.image}
                         address={restaurant.address}

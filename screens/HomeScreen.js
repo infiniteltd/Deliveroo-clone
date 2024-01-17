@@ -20,9 +20,9 @@ const HomeScreen = () => {
         client.fetch(`
         *[_type == "featured"]{
             ...,
-            restaurants[]=>{
+            restaurants[]->{
               ..., 
-              dishes[]=> {
+              dishes[]-> {
                 
               }
             },
@@ -31,6 +31,7 @@ const HomeScreen = () => {
         });
     }, []);
 
+    console.log(featuredCategories);
 
     return (
         <SafeAreaView className="bg-white pt-5">
